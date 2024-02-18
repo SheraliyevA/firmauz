@@ -10,7 +10,7 @@ urlpatterns=[
     path('api/xodim/<int:id>',XodimDetail.as_view()),
     path('api/xato',Xato_view.as_view()),
     path('api/xato/<int:id>',XatoDetail.as_view()),
-    path('api/xato/missed',Missed_view.as_view()),
-    path('api/xato/missed/<int:id>',MissedDetail.as_view())
+    path('api/missed',Missed_view.as_view()),
+    path('api/missed/<int:id>',MissedDetail.as_view())
     
 ]
