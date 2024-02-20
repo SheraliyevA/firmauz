@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hhiawigb(-4&3*5e3^42p(v&ea!k+h^6-*@(pza$ucq3htbj6f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL='firma.User'
 
 

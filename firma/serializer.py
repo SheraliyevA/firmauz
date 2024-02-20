@@ -28,24 +28,27 @@ class XodimSerializer(ModelSerializer):
         fields=[
             "id",
             "status",
-            "ism".capitalize,
-            "familiya".capitalize,
+            "ism",
+            "familiya",
             "phone",
             "ish_turi",
-           " id_raqam"
+           "id_raqam"
         ]
-        labels = {
-            "ism": _("Writer"),
-        }
-        help_texts = {
-            "ism": _("Some useful help text."),
-        }
-        error_messages = {
-            "ism": {
-                "max_length": _("This writer's name is too long."),
-            },
-        }
 
+
+class XodimGetSerializer(ModelSerializer):
+    ish_turi=Ishturi_or_BolimSerializer()
+    class Meta:
+        model=Xodim
+        fields=[
+            "id",
+            "status",
+            "ism",
+            "familiya",
+            "phone",
+            "ish_turi",
+           "id_raqam"
+        ]
 
 class XatoSerializer(ModelSerializer):
     class Meta:
@@ -91,4 +94,14 @@ class MissedGetSerializer(ModelSerializer):
             "izoh",
             "user_id",
             "mahsulot_id"
+        ]
+
+class BulimSerializer(ModelSerializer):
+    class Meta:
+        model=Bulim
+        fields=[
+            'id',
+            'bolim_nomi',
+            'bolim_id',
+           "bolim_rahbari"
         ]

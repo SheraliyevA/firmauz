@@ -14,7 +14,7 @@ class User(AbstractUser):
 class Bulim(models.Model):
     bolim_nomi=models.CharField(max_length=50)
     bolim_id=models.PositiveIntegerField()
-    bolim_rahbari=models.OneToOneField(User,on_delete=models.CASCADE,related_name="bolim")
+    bolim_rahbari=models.OneToOneField(User,on_delete=models.CASCADE)
 
 class Mahsulot(models.Model):
     mahsulot_id=models.PositiveIntegerField(unique=True)
@@ -52,14 +52,14 @@ class Xato(models.Model):
 class Workinspection(models.Model):
     xodim_id=models.ForeignKey(Xodim,on_delete=models.CASCADE)
     xato_id=models.ForeignKey(Xato,on_delete=models.CASCADE)
-    xato_soni=models.PositiveIntegerField()
-    yaroqli_product_soni=models.PositiveIntegerField()
-    ish_vaqti=models.PositiveIntegerField()
+    xato_soni=models.PositiveIntegerField(null=True)
+    yaroqli_product_soni=models.PositiveIntegerField(null=True)
+    ish_vaqti=models.PositiveIntegerField(null=True)
     created=models.DateTimeField(auto_now_add=True, db_comment="Date and time when the article was published",verbose_name=u"vaqt/soat"
 )
     updated=models.DateTimeField(auto_now=True,verbose_name=u"vaqtni yangilash")
     # rasm=models.ImageField()
-    izoh=models.TextField()
+    izoh=models.TextField(null=True)
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
     mahsulot_id=models.ForeignKey(Mahsulot,on_delete=models.CASCADE)
    

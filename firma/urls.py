@@ -11,6 +11,8 @@ urlpatterns=[
     path('api/xato',Xato_view.as_view()),
     path('api/xato/<int:id>',XatoDetail.as_view()),
     path('api/missed',Missed_view.as_view()),
-    path('api/missed/<int:id>',MissedDetail.as_view())
+    path('api/missed/<int:id>',MissedDetail.as_view()),
+    path('api/bulim',Bulim_View.as_view()),
+    path('api/bulim/<int:id>',Bulim_Detail.as_view())
     
 ]
