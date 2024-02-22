@@ -49,23 +49,23 @@ class MahsulotDetail(APIView):
 class Ishturi(APIView):
     
     def get(self,request):
-        user=Ishturi_or_Bolim.objects.all()
-        serializer=Ishturi_or_BolimSerializer(user,many=True)
+        user=Ishturi.objects.all()
+        serializer=Ishturi_Serializer(user,many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = Ishturi_or_BolimSerializer(data=request.data)
+        serializer = Ishturi_Serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self,request):
-        count = Ishturi_or_Bolim.objects.all().delete()
+        count = Ishturi.objects.all().delete()
         return Response({'message': '{}  Ma\'lumot o\'chirildi!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
     
     def patch(self,request):
-        serializer = Ishturi_or_BolimSerializer(request.user, data=request.data, partial=True)
+        serializer = Ishturi_Serializer(request.user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED) 
@@ -75,13 +75,13 @@ class Ishturi(APIView):
 class IshDetail(APIView):
      
      def delete(self,request,id):
-        count = Ishturi_or_Bolim.objects.get(id=id).delete()
+        count = Ishturi.objects.get(id=id).delete()
         return Response({'message': '{}  Ma\'lumot o\'chirildi!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
 
      
      def get(self,request,id):
-        data=Ishturi_or_Bolim.objects.get(id=id)
-        serializers=Ishturi_or_BolimSerializer(data)
+        data=Ishturi.objects.get(id=id)
+        serializers=Ishturi_Serializer(data)
         return Response(serializers.data,status=status.HTTP_201_CREATED)
 
 class Xato_view(APIView):

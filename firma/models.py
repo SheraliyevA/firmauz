@@ -20,7 +20,7 @@ class Mahsulot(models.Model):
     mahsulot_id=models.PositiveIntegerField(unique=True)
     mahsulot_nomi=models.CharField(max_length=1000)
 
-class Ishturi_or_Bolim(models.Model):
+class Ishturi(models.Model):
     name=models.CharField(max_length=100)
     ish_id=models.IntegerField(default=1,unique=True)
 
@@ -36,7 +36,7 @@ class Xodim(models.Model):
     familiya=models.CharField(max_length=50)                
     # rasm=models.ImageField()
     phone=models.CharField(max_length=13)
-    ish_turi=models.ManyToManyField(Ishturi_or_Bolim)
+    ish_turi=models.ManyToManyField(Ishturi)
     id_raqam=models.IntegerField(default=1,unique=True)
 
     def is_upperclass(self):

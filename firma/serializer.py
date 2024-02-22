@@ -13,9 +13,9 @@ class MahsulotSerializer(ModelSerializer):
             'mahsulot_nomi' 
         ]
 
-class Ishturi_or_BolimSerializer(ModelSerializer):
+class Ishturi_Serializer(ModelSerializer):
     class Meta:
-        model=Ishturi_or_Bolim
+        model=Ishturi
         fields=[
             "id",
             "name",
@@ -37,7 +37,7 @@ class XodimSerializer(ModelSerializer):
 
 
 class XodimGetSerializer(ModelSerializer):
-    ish_turi=Ishturi_or_BolimSerializer()
+    ish_turi=Ishturi_Serializer()
     class Meta:
         model=Xodim
         fields=[
