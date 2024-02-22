@@ -5,7 +5,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display=('status','phone')
 
 admin.site.register(User,UserAdmin)
-admin.site.register(Ishturi_or_Bolim)
+admin.site.register(Ishturi)
 admin.site.register(Mahsulot)
 admin.site.register(Xato)
 admin.site.register(Xodim)
