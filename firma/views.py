@@ -64,13 +64,6 @@ class Ishturi(APIView):
         count = Ishturi.objects.all().delete()
         return Response({'message': '{}  Ma\'lumot o\'chirildi!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
     
-    def patch(self,request):
-        serializer = Ishturi_Serializer(request.user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED) 
-        return Response(status=status.HTTP_400_BAD_REQUEST) 
- 
  
 class IshDetail(APIView):
      
@@ -83,6 +76,15 @@ class IshDetail(APIView):
         data=Ishturi.objects.get(id=id)
         serializers=Ishturi_Serializer(data)
         return Response(serializers.data,status=status.HTTP_201_CREATED)
+     
+     def patch(self, request, id):
+         ishturi=Ishturi.objects.get(id=id)
+         serializers = Ishturi_Serializer(ishturi, data=request.data, partial=True)
+         if serializers.is_valid():
+             serializers.save()
+             return Response(status=status.HTTP_201_CREATED)
+         return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 class Xato_view(APIView):
     
@@ -98,12 +100,6 @@ class Xato_view(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def patch(self,request):
-        serializer = XatoSerializer(request.user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED) 
-        return Response(status=status.HTTP_400_BAD_REQUEST) 
 
     
     def delete(self,request):
@@ -121,6 +117,15 @@ class XatoDetail(APIView):
         data=Xato.objects.get(id=id)
         serializers=XatoSerializer(data)
         return Response(serializers.data,status=status.HTTP_201_CREATED)
+     
+      
+     def patch(self, request, id):
+        xato = Xato.objects.get(id=id)
+        serializers = XatoSerializer(xato, data=request.data, partial=True)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=201)
+        return Response(serializers.errors, status=400)
 
 class Missed_view(APIView):
     def get(self,request):
@@ -135,13 +140,6 @@ class Missed_view(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def patch(self,request):
-        serializer = MissedSerializer(request.user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED) 
-        return Response(status=status.HTTP_400_BAD_REQUEST) 
-
     
     def delete(self,request):
         count = Workinspection.objects.all().delete()
@@ -156,7 +154,14 @@ class MissedDetail(APIView):
     def delete(self,request,id):
         count = Workinspection.objects.get(id=id).delete()
         return Response({'message': '{}  Ma\'lumot o\'chirildi!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
-
+    
+    def patch(self, request, id):
+        missed = Workinspection.objects.get(id=id)
+        serializers = MissedSerializer(missed, data=request.data, partial=True)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=201)
+        return Response(serializers.errors, status=400)
 
 class Xodim_view(APIView):
     
@@ -165,24 +170,17 @@ class Xodim_view(APIView):
         serializers=XodimGetSerializer(xodim,many=True)
         return Response(serializers.data)
 
-    # def post(self, request):
-    #     serializer = XodimSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    # def patch(self,request):
-    #     serializer = XodimSerializer(request.user, data=request.data, partial=True)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(status=status.HTTP_201_CREATED) 
-    #     return Response(status=status.HTTP_400_BAD_REQUEST) 
+    def post(self, request):
+        serializer = XodimSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     
-    # def delete(self,request):
-    #     count = Xodim.objects.all().delete()
-    #     return Response({'message': '{}  Ma\'lumot o\'chirildi!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
+    def delete(self,request):
+        count = Xodim.objects.all().delete()
+        return Response({'message': '{}  Ma\'lumot o\'chirildi!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
 
 class XodimDetail(APIView):
      
@@ -196,6 +194,16 @@ class XodimDetail(APIView):
         serializers=XodimSerializer(data)
         return Response(serializers.data,status=status.HTTP_201_CREATED)
      
+     def patch(self, request, id):
+        xodim = Xodim.objects.get(id=id)
+        serializers = XodimSerializer(xodim, data=request.data, partial=True)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=201)
+        return Response(serializers.errors, status=400)
+     
+    
+     
 class Bulim_View(APIView):
     def get(self,request):
         bulim=Bulim.objects.all()
@@ -208,13 +216,6 @@ class Bulim_View(APIView):
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def patch(self,request):
-        serializers = BulimSerializer(request.user, data=request.data, partial=True)
-        if serializers.is_valid():
-            serializers.save()
-            return Response(status=status.HTTP_201_CREATED) 
-        return Response(status=status.HTTP_400_BAD_REQUEST) 
 
     
     def delete(self,request):
@@ -232,3 +233,11 @@ class Bulim_Detail(APIView):
         data=Bulim.objects.get(id=id)
         serializers=BulimSerializer(data)
         return Response(serializers.data,status=status.HTTP_201_CREATED)
+     
+     def patch(self, request, id):
+        bulim = Bulim.objects.get(id=id)
+        serializers = BulimSerializer(bulim, data=request.data, partial=True)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=201)
+        return Response(serializers.errors, status=400)
