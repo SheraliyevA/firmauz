@@ -69,6 +69,8 @@ CORS_ALLOW_METHODS = (
     "POST",
     "PUT",
 )
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 from datetime import timedelta
 
 SIMPLE_JWT = {
