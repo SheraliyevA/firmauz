@@ -23,14 +23,7 @@ class Mahsulot_view(APIView):
     def delete(self,request):
         count = Mahsulot.objects.all().delete()
         return Response({'message': '{} Ma\'lumot o\'chirildi!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
-    
-    def patch(self,request):
-        serializer = MahsulotSerializer(request.user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED) 
-        return Response(status=status.HTTP_400_BAD_REQUEST) 
- 
+     
 class MahsulotDetail(APIView):
      
      def delete(self,request,id):
@@ -42,9 +35,14 @@ class MahsulotDetail(APIView):
         data=Mahsulot.objects.get(id=id)
         serializers=MahsulotSerializer(data)
         return Response(serializers.data,status=status.HTTP_201_CREATED)
-        
-
-
+     
+     def patch(self, request, id):
+         ishturi=Mahsulot.objects.get(id=id)
+         serializers = MahsulotSerializer(ishturi, data=request.data, partial=True)
+         if serializers.is_valid():
+             serializers.save()
+             return Response(status=status.HTTP_201_CREATED)
+         return Response(status=status.HTTP_400_BAD_REQUEST)
     
 class Ishturi(APIView):
     
