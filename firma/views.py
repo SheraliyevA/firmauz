@@ -6,6 +6,45 @@ from rest_framework.views import APIView
 from .models import *
 from .serializer import *
 from rest_framework.response import Response
+from rest_framework import permissions
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.parsers import MultiPartParser, JSONParser
+
+class SignUpView(APIView):
+    parser_classes = [JSONParser, MultiPartParser]
+    permission_classes = [permissions.AllowAny]
+    def get(self, request):
+        user = User.objects.all()
+        serializers = UserSerializer(user, many=True)
+        return Response(serializers.data)
+
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+
+class SignUpDetail(APIView):
+    parser_classes = [JSONParser, MultiPartParser]
+    permission_classes = [permissions.AllowAny]
+    def get(self, request, id):
+        try:
+            user = User.objects.get(id=id)
+            ser = UserSerializer(user)
+            return Response(ser.data)
+        except:
+            return Response({'{}': "bu id xato"})
+
+    def patch(self, request, id):
+        user = User.objects.get(id=id)
+        ser = UserSerializer(user, data = request.data, partial=True)
+        if ser.is_valid():
+            ser.save()
+            return Response(ser.data)
+        return Response(ser.errors)
+
 
 class Mahsulot_view(APIView):
     def get(self,request):
