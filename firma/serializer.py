@@ -47,7 +47,7 @@ class XodimGetSerializer(ModelSerializer):
             "familiya",
             "phone",
             "ish_turi",
-           "id_raqam"
+            "id_raqam"
         ]
 
 class XatoSerializer(ModelSerializer):

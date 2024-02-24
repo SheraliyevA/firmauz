@@ -4,7 +4,7 @@ from .models import *
 class UserAdmin(admin.ModelAdmin):
     list_display=('status','phone')
 
-admin.site.register(User,UserAdmin)
+admin.site.register(User)
 admin.site.register(Ishturi)
 admin.site.register(Mahsulot)
 admin.site.register(Xato)
